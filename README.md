@@ -28,7 +28,7 @@ Data in a Flux application flows in a single direction, in a cycle:
 
 A unidirectional data flow is central to the Flux pattern, and in fact Flux takes its name from the Latin word for flow. In the above diagram, the ___dispatcher___, ___stores___ and ___views___ are independent nodes with distinct inputs and outputs. The ___action creators___ are simply discrete, semantic helper functions that facilitate passing data to the ___dispatcher___ in the form of an ___action___.
 
-__once the project will run you'll have a react srv running on localhost:3005, and localhost:5000 \ 5001 for the Public API once these commands complete.__ 
+__once the project will run you'll have a SPA Web App at https://<ipaddress || localhost>:5001/.__ 
 
 ## Running the sample
 
