@@ -20,6 +20,7 @@ Data in a Flux application flows in a single direction, in a cycle:
 
 A unidirectional data flow is central to the Flux pattern, and in fact Flux takes its name from the Latin word for flow. In the above diagram, the ___dispatcher___, ___stores___ and ___views___ are independent nodes with distinct inputs and outputs. The ___action creators___ are simply discrete, semantic helper functions that facilitate passing data to the ___dispatcher___ in the form of an ___action___.
 
+__once the project will run you'll have a react srv running on localhost:3005, and localhost:5000 \ 5001 for the Public API once these commands complete.__ 
 
 ## Running the sample
 
@@ -36,10 +37,13 @@ dotnet tool restore
 
 ```
 -- 
-dotnet run --project ./DuckGoProxy_Core/DuckGoProxy_Core.csproj 
+donce the project will run you'll have a react srv running on/DuckGoProx3005re.csproj 
 ```
 
+
 ## Running the sample using Docker
+
+## add .Dockerfile in order to run it.
 
 You can run the Web sample by running these commands from the root folder (where the .sln file is located):
 
@@ -47,8 +51,6 @@ You can run the Web sample by running these commands from the root folder (where
     docker-compose build
     docker-compose up
 ```
-
-You should be able to make requests to localhost:5106 for the Web project, and localhost:5200 for the Public API project once these commands complete. If you have any problems, especially with login, try from a new guest or incognito browser instance.
 
 You can also run the applications by using the instructions located in their `Dockerfile` file in the root of each project. Again, run these commands from the root of the solution (where the .sln file is located).
 
