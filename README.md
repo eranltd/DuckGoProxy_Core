@@ -11,6 +11,14 @@ see documentation [here](https://docs.microsoft.com/en-us/aspnet/core/client-sid
 
 Flux applications have three major parts: the ___dispatcher___, the ___stores___, and the ___views___ (React components).  These should not be confused with Model-View-Controller.  Controllers do exist in a Flux application, but they are ___controller-views___ -- views often found at the top of the hierarchy that retrieve data from the stores and pass this data down to their children.  Additionally, ___action creators___ — dispatcher helper methods — are often used to support a semantic dispatcher API.  It can be useful to think of them as a fourth part of the Flux update cycle.
 
+Install npm packages
+To install third-party npm packages, use a command prompt in the ClientApp subdirectory. For example:
+
+Console
+
+Copy
+cd ClientApp
+npm install --save <package_name>
 
 ## Structure and Data Flow
 
