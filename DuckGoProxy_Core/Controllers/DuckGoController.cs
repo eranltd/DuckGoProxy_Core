@@ -28,7 +28,7 @@ namespace DuckGoProxy_Core.Controllers
         // GET: DuckGoController/Proxy
         [HttpGet]
         [Route("Proxy")]
-
+        [ResponseCache(VaryByHeader = "User-Agent", Duration = 30)] //maximize performance
         public async Task<ActionResult> Proxy([FromQuery] string q = "")
         {
             try
@@ -36,9 +36,7 @@ namespace DuckGoProxy_Core.Controllers
                 var queryParams = new Dictionary<string, string>();
                 queryParams.Add("q", q);
                 queryParams.Add("format", "json");
-
                 var response = await _duckDuckGoService.SendGetRequest(queryParams);
-
                 return new JsonResult(response);
             }
            catch(Exception exc)
@@ -47,12 +45,9 @@ namespace DuckGoProxy_Core.Controllers
             }
         }
 
-
         /*https://localhost:44399/DuckGo/IsAlive*/
         [HttpGet]
         [Route("IsAlive")]
         public IActionResult IsAlive() => Ok("I'm Alive");
-
-
     }
 }
