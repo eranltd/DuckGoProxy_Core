@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DuckGoProxy_Core.Models
 {
-    public class DuckDuckGoResponseItem
+    public class Topics
     {
-        [JsonProperty("RelatedTopics")]
-        public IList<RelatedTopic> Results { get; set; }
+        [JsonProperty("Topics")]
+        public IList<RelatedTopic> Topics2 { get; set; }
     }
 }

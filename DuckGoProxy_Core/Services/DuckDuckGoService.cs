@@ -16,23 +16,28 @@ namespace DuckGoProxy_Core.Services
     {
         public DuckDuckGoService(HttpClient httpClient, IConfiguration config) : base(httpClient, config) { }
 
-            internal async Task<DuckDuckGoResponseItem> SendGetRequest(string requestUrl, Dictionary<string,string> queryParams)
-            {
-                //try
-                //{
-                var response =  await base.SendGETRequest(requestUrl, queryParams);
-                string json = JsonConvert.SerializeObject(response.Value);
 
+        internal async Task<DuckDuckGoResponseItem> SendGetRequest(Dictionary<string, string> queryParams)
+        {
+            var endpoint = _config.GetSection("DUCKDUCKGO_RESULTS_API_ENDPOINT").Value;
+            return await SendGetRequest(endpoint, queryParams);
+        }
+
+        internal async Task<DuckDuckGoResponseItem> SendGetRequest(string requestUrl, Dictionary<string, string> queryParams)
+        {
+            try
+            {
+                var response = await base.SendGETRequest(requestUrl, queryParams);
+                string json = response.Value as string;
                 DuckDuckGoResponseItem duckDuckGoResponseItem = null;
                 duckDuckGoResponseItem = JsonConvert.DeserializeObject<DuckDuckGoResponseItem>(json);
-
                 return duckDuckGoResponseItem;
-                //}
-                //catch (Exception exc)
-                //{
-                //    return new JsonResult(new { results = "", error = exc.ToString() });
-                //}
             }
-        
+            catch (Exception exc)
+            {
+                return null;
+            }
+
+        }
     }
 }

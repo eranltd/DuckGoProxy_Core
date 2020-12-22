@@ -25,29 +25,32 @@ namespace DuckGoProxy_Core.Services.Base
 
             public virtual async Task<JsonResult> SendGETRequest(string requestUrl, Dictionary<string,string> QueryParams = null)
             {
-                dynamic ret;
+                //dynamic ret;
                 string response = String.Empty;
-                var watch = new Stopwatch();
+                //var watch = new Stopwatch();
                 try
                 {
-                    watch.Start();
+                    //watch.Start();
                     string url = QueryHelpers.AddQueryString(requestUrl, QueryParams);
-                    HttpResponseMessage response_new = await _httpClient.GetAsync(requestUrl);
+                    HttpResponseMessage response_new = await _httpClient.GetAsync(url);
                     response_new.EnsureSuccessStatusCode();
                     response = await response_new.Content.ReadAsStringAsync();
 
-                    watch.Stop();
-                    var responseTimeForCompleteRequest = watch.Elapsed.TotalSeconds;
-                    ret = GenerateServiceResponse(response, responseTimeForCompleteRequest, "");
-                }
-                catch (Exception exc)
-                {
-                    watch.Stop();
-                    var responseTimeForCompleteRequest = watch.Elapsed.TotalSeconds;
-                    ret = GenerateServiceResponse(null, responseTimeForCompleteRequest, exc.ToString().Truncate(500));
-                }
+                    //watch.Stop();
+                    //var responseTimeForCompleteRequest = watch.Elapsed.TotalSeconds;
+                //ret = GenerateServiceResponse(response, responseTimeForCompleteRequest, "");
+                return new JsonResult(response);
 
-                return new JsonResult(ret);
+            }
+            catch (Exception exc)
+                {
+                    //watch.Stop();
+                    //var responseTimeForCompleteRequest = watch.Elapsed.TotalSeconds;
+                //ret = GenerateServiceResponse(null, responseTimeForCompleteRequest, exc.ToString().Truncate(500));
+                return new JsonResult(exc);
+
+            }
+
             }
 
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DuckGoProxy_Core.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace DuckGoProxy_Core.Controllers
 {
-    public class DuckGoController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class DuckGoController : ControllerBase
     {
-
-
+        private readonly DuckDuckGoService _duckDuckGoService;
+        public DuckGoController(DuckDuckGoService duckDuckGoService)
+        {
+            _duckDuckGoService = duckDuckGoService;
+        }
         /*
          Usage Example : 
          https://api.duckduckgo.com/?q=valley+forge+national+park&format=json&pretty=1  
@@ -19,79 +25,34 @@ namespace DuckGoProxy_Core.Controllers
          https://api.duckduckgo.com/?q=!imdb+rushmore&format=json&pretty=1&no_redirect=1
          */
 
-        // GET: DuckGoController
-        public ActionResult Index()
-        {
-            return View();
-        }
+        // GET: DuckGoController/Proxy
+        [HttpGet]
+        [Route("Proxy")]
 
-        // GET: DuckGoController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: DuckGoController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: DuckGoController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Proxy([FromQuery] string q = "")
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var queryParams = new Dictionary<string, string>();
+                queryParams.Add("q", q);
+                queryParams.Add("format", "json");
+
+                var response = await _duckDuckGoService.SendGetRequest(queryParams);
+
+                return new JsonResult(response);
             }
-            catch
+           catch(Exception exc)
             {
-                return View();
+                return new JsonResult(exc);
             }
         }
 
-        // GET: DuckGoController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: DuckGoController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        /*https://localhost:44399/DuckGo/IsAlive*/
+        [HttpGet]
+        [Route("IsAlive")]
+        public IActionResult IsAlive() => Ok("I'm Alive");
 
-        // GET: DuckGoController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: DuckGoController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

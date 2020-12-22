@@ -24,7 +24,9 @@ namespace DuckGoProxy_Core
         {
             services.AddControllersWithViews();
             services.AddHttpClient<DuckDuckGoService>();
-
+            services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

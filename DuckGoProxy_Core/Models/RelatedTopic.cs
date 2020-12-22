@@ -13,5 +13,9 @@ namespace DuckGoProxy_Core.Models
 
         [JsonProperty("Text")]
         public string Title { get; set; }
+
+        [JsonProperty("Topics")]
+
+        public IList<RelatedTopic> Topics { get; set; }
     }
 }
