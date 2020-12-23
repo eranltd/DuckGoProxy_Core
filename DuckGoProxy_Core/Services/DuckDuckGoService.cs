@@ -17,13 +17,13 @@ namespace DuckGoProxy_Core.Services
         public DuckDuckGoService(HttpClient httpClient, IConfiguration config) : base(httpClient, config) { }
 
 
-        internal async Task<DuckDuckGoResponseItem> SendGetRequest(Dictionary<string, string> queryParams)
+        internal async Task<IList<Topic>> SendGetRequest(Dictionary<string, string> queryParams)
         {
             var endpoint = _config.GetSection("DUCKDUCKGO_RESULTS_API_ENDPOINT").Value;
             return await SendGetRequest(endpoint, queryParams);
         }
 
-        internal async Task<DuckDuckGoResponseItem> SendGetRequest(string requestUrl, Dictionary<string, string> queryParams)
+        internal async Task<IList<Topic>> SendGetRequest(string requestUrl, Dictionary<string, string> queryParams)
         {
             try
             {
@@ -31,7 +31,15 @@ namespace DuckGoProxy_Core.Services
                 string json = response.Value as string;
                 DuckDuckGoResponseItem duckDuckGoResponseItem = null;
                 duckDuckGoResponseItem = JsonConvert.DeserializeObject<DuckDuckGoResponseItem>(json);
-                return duckDuckGoResponseItem;
+
+                var flatternArray = duckDuckGoResponseItem.Results.Where(x=>x.Topics !=null).SelectMany(x => x.Topics).ToList();
+                var flat = duckDuckGoResponseItem.Results.Where(x=>x.Topics == null).Select(s => new Topic(s.Title, s.URL)).ToList();
+
+                flat = flat.Concat(flatternArray).ToList();
+
+
+                //return duckDuckGoResponseItem;
+                return flat.ToList();
             }
             catch (Exception exc)
             {

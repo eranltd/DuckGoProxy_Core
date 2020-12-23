@@ -9,6 +9,6 @@ namespace DuckGoProxy_Core.Models
     public class DuckDuckGoResponseItem
     {
         [JsonProperty("RelatedTopics")]
-        public IList<RelatedTopic> Results { get; set; }
+        public IList<Topic> Results { get; set; }
     }
 }

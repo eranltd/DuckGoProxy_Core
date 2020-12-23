@@ -9,6 +9,6 @@ namespace DuckGoProxy_Core.Models
     public class Topics
     {
         [JsonProperty("Topics")]
-        public IList<RelatedTopic> Topics2 { get; set; }
+        public IList<Topic> Topics2 { get; set; }
     }
 }

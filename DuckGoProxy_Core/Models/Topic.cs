@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace DuckGoProxy_Core.Models
 {
-    public class RelatedTopic
+    public class Topic
     {
+        public Topic(string uRL, string title)
+        {
+            URL = uRL;
+            Title = title;
+        }
+
         [JsonProperty("FirstURL")]
         public string URL { get; set; }
 
@@ -16,6 +22,6 @@ namespace DuckGoProxy_Core.Models
 
         [JsonProperty("Topics")]
 
-        public IList<RelatedTopic> Topics { get; set; }
+        public IList<Topic> Topics { get; set; }
     }
 }
