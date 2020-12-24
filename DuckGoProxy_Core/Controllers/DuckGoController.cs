@@ -1,4 +1,5 @@
 ﻿using DuckGoProxy_Core.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -30,6 +31,7 @@ namespace DuckGoProxy_Core.Controllers
 
         // GET: DuckGoController
         [HttpGet]
+        //[EnableCors("DuckDuckGoDevelopement")]
         [ResponseCache(VaryByHeader = "User-Agent", Duration = 30)] //maximize performance
         public async Task<ActionResult> Get([FromQuery] string q = "")
         {
