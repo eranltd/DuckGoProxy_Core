@@ -8,20 +8,34 @@ namespace DuckGoProxy_Core.Models
 {
     public class Topic
     {
-        public Topic(string uRL, string title)
+        [JsonProperty("id")]
+
+        public long id => _date.Ticks;
+
+        readonly DateTime _date;
+        public Topic(string url, string title)
         {
-            URL = uRL;
+            URL = url;
             Title = title;
+            _date = DateTime.Now;
         }
 
         [JsonProperty("FirstURL")]
-        public string URL { get; set; }
+        public string FirstURL { set { URL = value; } }
 
         [JsonProperty("Text")]
-        public string Title { get; set; }
+        public string Text { set { Title = value; } }
 
         [JsonProperty("Topics")]
+        public IList<Topic> _topics { set { Topics = value; } }
 
-        public IList<Topic> Topics { get; set; }
+        [JsonIgnore]
+        public IList<Topic> Topics {get;set;}
+
+        [JsonProperty("URL")]
+        public string URL { get; set; }
+
+        [JsonProperty("Title")]
+        public string Title { get; set; }
     }
 }

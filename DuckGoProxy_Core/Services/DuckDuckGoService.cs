@@ -33,7 +33,7 @@ namespace DuckGoProxy_Core.Services
                 duckDuckGoResponseItem = JsonConvert.DeserializeObject<DuckDuckGoResponseItem>(json);
 
                 var flatternArray = duckDuckGoResponseItem.Results.Where(x=>x.Topics !=null).SelectMany(x => x.Topics).ToList();
-                var flat = duckDuckGoResponseItem.Results.Where(x=>x.Topics == null).Select(s => new Topic(s.Title, s.URL)).ToList();
+                var flat = duckDuckGoResponseItem.Results.Where(x=>x.Topics == null).Select(s => new Topic(s.URL, s.Title)).ToList();
 
                 flat = flat.Concat(flatternArray).ToList();
 

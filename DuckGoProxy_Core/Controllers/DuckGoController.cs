@@ -1,6 +1,7 @@
 ﻿using DuckGoProxy_Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace DuckGoProxy_Core.Controllers
     public class DuckGoController : ControllerBase
     {
         private readonly DuckDuckGoService _duckDuckGoService;
+        private readonly ILogger<DuckGoController> _logger;
+
         public DuckGoController(DuckDuckGoService duckDuckGoService)
         {
             _duckDuckGoService = duckDuckGoService;
@@ -25,11 +28,10 @@ namespace DuckGoProxy_Core.Controllers
          https://api.duckduckgo.com/?q=!imdb+rushmore&format=json&pretty=1&no_redirect=1
          */
 
-        // GET: DuckGoController/Proxy
+        // GET: DuckGoController
         [HttpGet]
-        [Route("Proxy")]
         [ResponseCache(VaryByHeader = "User-Agent", Duration = 30)] //maximize performance
-        public async Task<ActionResult> Proxy([FromQuery] string q = "")
+        public async Task<ActionResult> Get([FromQuery] string q = "")
         {
             try
             {
