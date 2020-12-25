@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
     
 
     return(
-      // <ClickAwayListener onClickAway={ (isOpen && toggleDrawer(isOpen))}>
+      <ClickAwayListener onClickAway={ (isOpen && toggleDrawer(isOpen))}>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
@@ -181,7 +181,7 @@ const useStyles = makeStyles((theme) => ({
       
       </main>
     </div>
-    // </ClickAwayListener>
+     </ClickAwayListener>
 
     )
 }

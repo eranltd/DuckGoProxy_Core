@@ -13,16 +13,12 @@ import { connect } from "react-redux";
 
 const SearchHistoryItem = memo( (props) => {
   
-  const dispatch = useDispatch();
   const historyItem = props.historyItem;
-
   const handleSearchHistory = props.handleSearchHistory;
 
   return(
   <ListItem divider={props.divider}>
-      {historyItem && historyItem.completed ? "👌" : "👋"}{" "}
-
-
+      🔍
  
  <Button htmlFor={historyItem.id+'-historyItem'}
     primary={historyItem.content}  onClick={e => {handleSearchHistory(historyItem.content)}}

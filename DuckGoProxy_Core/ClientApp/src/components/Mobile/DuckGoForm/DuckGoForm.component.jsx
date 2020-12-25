@@ -28,11 +28,11 @@ const DuckGoForm= (props) => {
 
                 dispatch(addSearchHistory(qParam)); //updates the search history list
 
-            fetchDataFromAPI();
+            fetchDataFromAPI(qParam);
     }
 
-    const fetchDataFromAPI = () => {
-        const url = `DuckGo/?q=${qParam}`;
+    const fetchDataFromAPI = (x) => {
+      const url = `DuckGo/?q=${x}`;
         const fetchData = async () => {
             try {
                 const res = await fetch(url, {});
@@ -40,7 +40,7 @@ const DuckGoForm= (props) => {
 
                 //clear previous iterations
                 dispatch(clearTopics()); //updates the search history list
-                setResponse(json); //updates main data-grid //TODO : convert it to 1 time update instead of using "map"
+                setResponse(json); //updates main data-grid 
               }
             catch (error) {
                 setError(error);
@@ -49,11 +49,12 @@ const DuckGoForm= (props) => {
         fetchData();
     }
   
-      React.useEffect(() => {
+      // React.useEffect(() => {
+        React.useLayoutEffect(() => {
+             let x = externalParam || qParam;
              setQueryParam(externalParam);
-             externalParam && fetchDataFromAPI();
+             externalParam && fetchDataFromAPI(x);
         }, [externalParam])
-
 
 
     return (
