@@ -5,12 +5,6 @@ import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/Inbox'
-import MailIcon from '@material-ui/icons/Mail'
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import MoneyIcon from '@material-ui/icons/Money';
-import MobileRoutes from '../../Mobile/RoutesMobile';
-import DesktopRoutes from '../../Desktop/RoutesDesktop';
 import SearchHistory from '../../shared/SearchHistory/SearchHistory.component';
 
 
@@ -22,12 +16,7 @@ import {
   IconButton,
   Divider,
   Drawer,
-  MenuList,
-  List,
-  ListItem,
-  ListItemIcon,
-  MenuItem,
-  ListItemText,
+  List
  } from '@material-ui/core';
 
 const drawerWidth = 240;
@@ -108,12 +97,9 @@ const useStyles = makeStyles((theme) => ({
       setIsOpen(!toggler);
     };
     
-    const activeRoute = (routeName) => {
-      return props.location.pathname === routeName ? true : false;
-    }
 
     return(
-      <ClickAwayListener onClickAway={ (isOpen && toggleDrawer(isOpen))}>
+      // <ClickAwayListener onClickAway={ (isOpen && toggleDrawer(isOpen))}>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
@@ -180,20 +166,6 @@ const useStyles = makeStyles((theme) => ({
           </List>
         </div>
 
-        <Divider />
-
-        <List>
-          {['Button1','Button2','Button3'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-       
-
-
-
       </Drawer>
 
 
@@ -207,7 +179,7 @@ const useStyles = makeStyles((theme) => ({
       
       </main>
     </div>
-    </ClickAwayListener>
+    // </ClickAwayListener>
 
     )
 }

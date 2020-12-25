@@ -1,49 +1,46 @@
 import "./DuckGoForm.styles.scss";
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import {  useDispatch } from "react-redux";
+import { addTopic,addSearchHistory } from "../../../redux/actions";
 import {
   Button,
   TextField,
   Grid,
-  Paper,    
-  AppBar,
-  Typography,
-  Toolbar,
-  Link,
+  Paper
 } from "@material-ui/core";
-
 
 const DuckGoForm= (props) => {
 
+    const dispatch = useDispatch();
+    const [queryParam, setQueryParam] = useState("");
+    
+    const setResponse = (json) => json.map(x=>dispatch(addTopic(x)));;
+    const setError = (result) => console.error(result);
 
-const [queryParam, setQueryParam] = useState("");
-const setResponse = (result) => console.log(result);
+    const    handleSubmit = (event) => {
+              
+                //console.log(queryParam)
+                const url = `DuckGo/?q=${queryParam}`
+                event.preventDefault();
 
-const    handleSubmit = (event) => {
-            
+                dispatch(addSearchHistory(queryParam)); //updates the search history list
 
-            const queryParam = event;
+                const fetchData = async () => {
+                    try{
+                        const res = await fetch(url,{});
+                        const json = await res.json();
 
-            console.log(queryParam)
+                        setResponse(json); //updates main data-grid //TODO : convert it to 1 time update instead of using "map"
 
-            const url = 'http://localhost:5000/DuckGo/?q=x'
+                         
 
-            event.preventDefault();
-            //TODO : take URL from .ENV file
-            const fetchData = async () => {
-                try{
-                    const res = await fetch(url,{});
-                    const json = await res.json();
-                    setResponse(json);
-                }
-                catch (error){
-                    //setError(error);
-                }
-            };
-
-            fetchData();
-
-    }
+                    }
+                    catch (error){
+                        setError(error);
+                    }
+                };
+                fetchData();
+        }
 
     return (
       <div>
@@ -107,7 +104,8 @@ const    handleSubmit = (event) => {
           </Grid>
         </Grid>
       </div>
-    );
+
+);
   }
 
 export default DuckGoForm;
