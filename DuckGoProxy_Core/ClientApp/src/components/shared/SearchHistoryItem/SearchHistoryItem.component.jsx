@@ -25,7 +25,7 @@ const SearchHistoryItem = memo( (props) => {
 
  
  <Button htmlFor={historyItem.id+'-historyItem'}
-    primary={historyItem.content}  onClick={e => {handleSearchHistory(historyItem.content);props.dispatch({ type: "SUBMIT_FORM" })}}
+    primary={historyItem.content}  onClick={e => {handleSearchHistory(historyItem.content)}}
     >   
     {historyItem.content} 
    </Button>

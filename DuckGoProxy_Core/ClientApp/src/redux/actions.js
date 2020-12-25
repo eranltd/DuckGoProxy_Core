@@ -1,4 +1,4 @@
-import { ADD_TOPIC,ADD_SEARCH_HISTORY,SET_QUERY_PARAM,SUBMIT_FORM,CLEAR_TOPICS } from "./actionTypes";
+import { ADD_TOPIC,ADD_SEARCH_HISTORY,CLEAR_TOPICS } from "./actionTypes";
 
 
 let nextTopicId = 0;
@@ -21,19 +21,8 @@ export const addSearchHistory = content => ({
   }
 });
 
-export const submitForm = content => ({
-  type: SUBMIT_FORM,
-  payload: {
-    content
-  }
-});
 
-// export const setQueryParam = content => ({
-//   type: SET_QUERY_PARAM,
-//   payload: {
-//     content
-//   }
-// });
+
 
 export const clearTopics = content => ({
   type: CLEAR_TOPICS,

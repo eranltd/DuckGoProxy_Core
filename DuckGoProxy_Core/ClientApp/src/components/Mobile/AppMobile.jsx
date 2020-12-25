@@ -10,7 +10,6 @@ const MobileComponent = () => {
 
       function handleSideBarClick(queryParam) {
             setQueryParam(queryParam);
-            // alert(queryParam)
           }
 
       return (

@@ -14,7 +14,7 @@ const SearchHistory = memo(props => {
 return(
     
     <>
-    {history.length == 0  && (<h6>You Hav't submitted any queries yet!</h6>)}
+    {history.length === 0  && (<h6>You Hav't submitted any queries yet!</h6>)}
     {history && history.length > 0 && (
         <Paper style={{ margin: 16 }}>
           <List style={{ overflow: "hidden" }}>

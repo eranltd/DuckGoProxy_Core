@@ -9,49 +9,42 @@ see documentation [here](https://docs.microsoft.com/en-us/aspnet/core/client-sid
 
 ## Overview
 
-Flux applications have three major parts: the ___dispatcher___, the ___stores___, and the ___views___ (React components).  These should not be confused with Model-View-Controller.  Controllers do exist in a Flux application, but they are ___controller-views___ -- views often found at the top of the hierarchy that retrieve data from the stores and pass this data down to their children.  Additionally, ___action creators___ — dispatcher helper methods — are often used to support a semantic dispatcher API.  It can be useful to think of them as a fourth part of the Flux update cycle.
-
-Install npm packages
-To install third-party npm packages, use a command prompt in the ClientApp subdirectory. For example:
-
-Console
-
-Copy
-cd ClientApp
-npm install --save <package_name>
-
+This project is built from 2 main parts : ___.net core(backend)___, the ___react(front-end)___ and ___redux___ library
+I choose to host the react SPA within the .net core, that why you are going to use VS 2019 inorder to run it or dotnet run command.
+plus, i want both servers to run from the same origin.
 ## Structure and Data Flow
 
-Data in a Flux application flows in a single direction, in a cycle:
+A unidirectional data flow is central to react,is used on frontend side with redux, react hooks and material design
+on server side many "nice to have" patterns has been used such as (Dependency Injection, ResponseCaching and such)
 
-<img src="../../docs/img/flux-diagram-white-background.png" style="width: 100%;" />
-
-A unidirectional data flow is central to the Flux pattern, and in fact Flux takes its name from the Latin word for flow. In the above diagram, the ___dispatcher___, ___stores___ and ___views___ are independent nodes with distinct inputs and outputs. The ___action creators___ are simply discrete, semantic helper functions that facilitate passing data to the ___dispatcher___ in the form of an ___action___.
-
-__once the project will run you'll have a SPA Web App at https://<ipaddress || localhost>:5001/.__ 
 
 ## Running the sample
 
-( You can also run the samples in Docker (see below). )
-
-1. Open a command prompt in the Web folder and execute the following commands:
+( You can also run this samples in Docker (see below). )
+1. Open a command prompt in the Web folder (~/DuckGoProxy_Core/DuckGoProxy_Core)  (where csproj file is located) and execute the following commands:
 
 ```
 dotnet restore
 dotnet tool restore
 ```
-
-1. Run the application via "dotnet run command" 
+1.1 Open a command prompt in the React Web folder (~/DuckGoProxy_Core\DuckGoProxy_Core/ClientApp)  and execute the following commands:
 
 ```
--- 
-donce the project will run you'll have a react srv running on/DuckGoProx3005re.csproj 
+npm install
 ```
 
+2. Run the application via "dotnet run command" 
+```
+dotnet run command
+```
+
+__once the project will run you'll have a SPA Web App at http://<ipaddress || localhost>:5000/.__ 
 
 ## Running the sample using Docker
 
 ## add .Dockerfile in order to run it.
+
+[Micosoft .Dockerfile] https://docs.docker.com/engine/examples/dotnetcore/
 
 You can run the Web sample by running these commands from the root folder (where the .sln file is located):
 
@@ -62,6 +55,34 @@ You can run the Web sample by running these commands from the root folder (where
 
 You can also run the applications by using the instructions located in their `Dockerfile` file in the root of each project. Again, run these commands from the root of the solution (where the .sln file is located).
 
+***you can also run this project as 2 seperated servers:
+
+__First Remove the Use.SPA code__ (from Startup.cs) (just comment this lines)
+```
+ services.AddSpaStaticFiles(configuration =>
+                {
+                    configuration.RootPath = "ClientApp/build";
+                });
+                
+ app.UseSpaStaticFiles();
+ 
+app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
+```
+Run the application via "dotnet run command" (~/DuckGoProxy_Core/DuckGoProxy_Core)
+Run the react server via npm commands( from ~/DuckGoProxy_Core\DuckGoProxy_Core/ClientApp folder)
+```
+npm install
+npm start
+```
+```
 ## Contributing
 
 Pull requests are welcome.

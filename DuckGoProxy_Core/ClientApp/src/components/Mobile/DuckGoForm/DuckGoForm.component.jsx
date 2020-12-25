@@ -14,9 +14,10 @@ const DuckGoForm= (props) => {
     const dispatch = useDispatch();
 
     const [qParam, setQueryParam] = useState(props.queryParam);
-    
+    const externalParam = props.queryParam;
 
-    const setResponse = (json) => json.map(x=>dispatch(addTopic(x)));;
+    const setResponse = (json) => json.map(x => dispatch(addTopic(x)));
+
     const setError = (result) => console.error(result);
 
     const    handleSubmit = (event) => {
@@ -40,7 +41,6 @@ const DuckGoForm= (props) => {
                 //clear previous iterations
                 dispatch(clearTopics()); //updates the search history list
                 setResponse(json); //updates main data-grid //TODO : convert it to 1 time update instead of using "map"
-            
               }
             catch (error) {
                 setError(error);
@@ -50,9 +50,10 @@ const DuckGoForm= (props) => {
     }
   
       React.useEffect(() => {
-            setQueryParam(props.queryParam);
-            qParam && fetchDataFromAPI();
-        }, [props.queryParam])
+             setQueryParam(externalParam);
+             externalParam && fetchDataFromAPI();
+        }, [externalParam])
+
 
 
     return (

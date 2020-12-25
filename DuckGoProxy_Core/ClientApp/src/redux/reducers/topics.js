@@ -21,7 +21,6 @@ export default function(state = initialState, action) {
       };
     }
     case CLEAR_TOPICS: {
-      const { id, content } = action.payload;
       return {
         allIds: [],
         byIds: {}

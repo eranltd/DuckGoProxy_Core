@@ -10,8 +10,6 @@ const Topics = memo(props =>{
      const state = useSelector(state => state);
      const topics = getTopics(state);
 
-    // console.log(topics)
-
      const columns = [
         
         { field: 'id', headerName: 'id', hide: true  },
