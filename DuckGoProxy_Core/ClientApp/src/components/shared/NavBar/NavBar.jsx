@@ -84,6 +84,10 @@ const useStyles = makeStyles((theme) => ({
     const theme = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const IsMobile = props.IsMobile;
+
+    const onSideBarClick = props.onSideBarClick;
+
+
     const toggleDrawer = (toggler) => (
       event) => {
       if (
@@ -151,17 +155,15 @@ const useStyles = makeStyles((theme) => ({
           onKeyDown={toggleDrawer(isOpen)}
         >
           <List>
-{
+        {
           IsMobile?
-          <SearchHistory/> //can be converted to 2 versions later, this will be mobile version
+          <SearchHistory onSideBarClick = {onSideBarClick}/> //can be converted to 2 versions later, this will be mobile version
            
             :
             <SearchHistory/> //can be converted to 2 versions later, this will be desktop version
 
             
-}
-
-        {/* <MenuItem onClick={alert("implement me")}>Suppliers Login</MenuItem> */}
+        }
 
           </List>
         </div>

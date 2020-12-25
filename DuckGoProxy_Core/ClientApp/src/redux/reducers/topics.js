@@ -1,4 +1,4 @@
-import { ADD_TOPIC } from "../actionTypes";
+import { ADD_TOPIC, CLEAR_TOPICS } from "../actionTypes";
 
 const initialState = {
   allIds: [],
@@ -20,6 +20,14 @@ export default function(state = initialState, action) {
         }
       };
     }
+    case CLEAR_TOPICS: {
+      const { id, content } = action.payload;
+      return {
+        allIds: [],
+        byIds: {}
+        };
+      }
+    
 
     default:
       return state;

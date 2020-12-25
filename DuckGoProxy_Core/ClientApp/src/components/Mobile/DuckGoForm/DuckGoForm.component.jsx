@@ -1,7 +1,7 @@
 import "./DuckGoForm.styles.scss";
 import React, { useState } from 'react';
 import {  useDispatch } from "react-redux";
-import { addTopic,addSearchHistory } from "../../../redux/actions";
+import { addTopic,addSearchHistory,clearTopics } from "../../../redux/actions";
 import {
   Button,
   TextField,
@@ -12,35 +12,48 @@ import {
 const DuckGoForm= (props) => {
 
     const dispatch = useDispatch();
-    const [queryParam, setQueryParam] = useState("");
+
+    const [qParam, setQueryParam] = useState(props.queryParam);
     
+
     const setResponse = (json) => json.map(x=>dispatch(addTopic(x)));;
     const setError = (result) => console.error(result);
 
     const    handleSubmit = (event) => {
               
                 //console.log(queryParam)
-                const url = `DuckGo/?q=${queryParam}`
+               
                 event.preventDefault();
 
-                dispatch(addSearchHistory(queryParam)); //updates the search history list
+                dispatch(addSearchHistory(qParam)); //updates the search history list
 
-                const fetchData = async () => {
-                    try{
-                        const res = await fetch(url,{});
-                        const json = await res.json();
+            fetchDataFromAPI();
+    }
 
-                        setResponse(json); //updates main data-grid //TODO : convert it to 1 time update instead of using "map"
+    const fetchDataFromAPI = () => {
+        const url = `DuckGo/?q=${qParam}`;
+        const fetchData = async () => {
+            try {
+                const res = await fetch(url, {});
+                const json = await res.json();
 
-                         
+                //clear previous iterations
+                dispatch(clearTopics()); //updates the search history list
+                setResponse(json); //updates main data-grid //TODO : convert it to 1 time update instead of using "map"
+            
+              }
+            catch (error) {
+                setError(error);
+            }
+        };
+        fetchData();
+    }
+  
+      React.useEffect(() => {
+            setQueryParam(props.queryParam);
+            qParam && fetchDataFromAPI();
+        }, [props.queryParam])
 
-                    }
-                    catch (error){
-                        setError(error);
-                    }
-                };
-                fetchData();
-        }
 
     return (
       <div>
@@ -71,7 +84,7 @@ const DuckGoForm= (props) => {
                           fullWidth
                           name="queryParam"
                           variant="outlined"
-                          value={queryParam}
+                          value={qParam}
                           onChange={(event) => {
                             setQueryParam(event.target.value)
                           }}

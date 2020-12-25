@@ -9,10 +9,12 @@ const SearchHistory = memo(props => {
 
     const state = useSelector(state => state);
     const history = getSearchHistory(state);
+    const handleSearchHistory = props.onSideBarClick;
 
 return(
     
     <>
+    {history.length == 0  && (<h6>You Hav't submitted any queries yet!</h6>)}
     {history && history.length > 0 && (
         <Paper style={{ margin: 16 }}>
           <List style={{ overflow: "hidden" }}>
@@ -22,6 +24,9 @@ return(
               historyItem={historyItem}
                 key={`history-${historyItem.id}`}
                 divider= {history.id !== history.length - 1}
+                handleSearchHistory = {handleSearchHistory}
+
+                
 
               />
 
