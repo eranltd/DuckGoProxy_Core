@@ -37,7 +37,6 @@ namespace DuckGoProxy_Core.Services
 
                 flat = flat.Concat(flatternArray).ToList();
 
-
                 //return duckDuckGoResponseItem;
                 return flat.ToList();
             }

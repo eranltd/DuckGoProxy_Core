@@ -9,13 +9,16 @@ see documentation [here](https://docs.microsoft.com/en-us/aspnet/core/client-sid
 
 ## Overview
 
+This project servers as a 'UI Proxy' to Duck Duck Go, where we can submit queries and get result asap.
+
 This project is built from 2 main parts : ___.net core(backend)___, the ___react(front-end)___ and ___redux___ library
 I choose to host the react SPA within the .net core, that why you are going to use VS 2019 inorder to run it or dotnet run command.
 plus, i want both servers to run from the same origin.
+
 ## Structure and Data Flow
 
 A unidirectional data flow is central to react,is used on frontend side with redux, react hooks and material design
-on server side many "nice to have" patterns has been used such as (Dependency Injection, ResponseCaching and such)
+on server side many "nice to have" patterns has been used such as (Dependency Injection, ResponseCaching,LINQ and such)
 
 
 ## Running the sample
